@@ -5,30 +5,104 @@ const hole = 'O';
 const fieldCharacter = '░';
 const pathCharacter = '*';
 
+// Class Field
+//    the constructor takes a 2d array 'field' i.e. the game board as input
 
-// Create the game board
-const gameFieldOne = [
-  [pathCharacter, fieldCharacter, fieldCharacter],
-  [pathCharacter, fieldCharacter, hole],
-  [hole, fieldCharacter, fieldCharacter],
-  [hole, fieldCharacter, fieldCharacter],[fieldCharacter, hat, hole],
-    ];
-
-// Define class Field
 class Field {
   constructor(fieldArray){
     this._fieldArray = fieldArray;
   }
+    
 // Print method of class Field
 //    prints the current state of the game board
-  print () {
+
+    print () {
+// display the 'field' to the user console
 // More sensibly we wouldn't assume the array size but would have a for loop
     console.log(this._fieldArray[0].join(' '));
     console.log(this._fieldArray[1].join(' '));
     console.log(this._fieldArray[2].join(' '));
     console.log(this._fieldArray[3].join(' '));  
-    }
-}
+    } // method .print() of Class Field
+
+    static generateField(height, width){
+	// takes parameters height and width for the filed array
+	// we may add input the percentage of holes
+	// nothing to see here yet
+	// we're generating the field by hand
+	
+    } // method .generateField of Class Field
+
+    playGame(){
+	// Make sure the move is possible
+	// E.g.: 'You can go down or right' ... in the starting position
+
+	// Get player move and process
+
+	// let playerMove;
+	let i = 0;
+	let j = 0;
+	let maxI = 3;
+	let maxJ = 2;
+	let playerPosition = [i, j];
+	let illegalInput = false;
+	
+	let gameOver = false;
+// Game loop
+	/* Do until- either
+	   1. win
+	   2. player falls down a hole
+	   3. player falls off the edge of the board
+	*/
+  
+	// decrement or increment the index of one the game arrays
+	// if up or left and index < 0 - GAME OVER!
+	// if down or right and index > <array-name>.length - GAME OVER!
+	do {
+	    (playerMove = prompt('Please enter a move, u[p], d[own] l[eft] or r[ight] or "X" to quit: '));
+	    // left & right
+	    // decrement or increment the value of i
+	    // up & down
+	    // decrement or increment j
+
+	    switch (playerMove){
+	    case 'u':
+		i--;
+		if (i < 0) {illegalInput = true};
+		break;
+	    case 'd':
+		i++;
+//		if (i > wTf.length) {illegalInput = true};
+		if (i > maxI) {illegalInput = true};
+		break;
+	    case 'l':
+		j--;
+		if (j < 0) {illegalInput = true};
+		break;
+	    case 'r':
+		j++;
+// 		if (j > wTf2) {illegalInput = true}
+		if (j > maxJ) {illegalInput = true}
+		break;
+	    case 'X':
+		gameOver = true;
+		break;
+	    default: // do we need a default case?
+	    } // switch
+	    if (i < 0  || i > 3 || j < 0  || j > 2) {	
+		console.log('Not a legal input...')
+		console.log('Sorry you screwed up. Goodbye.');
+       		gameOver;
+	    } // if (out of bounds)
+	} while (!gameOver && playerMove !== 'X')
+
+    } // method .playGame() of Class Field
+    
+} // Class Field
+
+// Create a field array to be passed to the object when we instantiate
+Field.generateField();
+
 
 // Instantiate the Field object
 const myFieldOne = new Field(gameFieldOne);
@@ -39,62 +113,15 @@ myFieldOne.print();
 // console.log(`Hello, ${userName}!`)
 
 
-// Propmt the user for a move
-// Make sure the move is possible
-// E.g.: 'You can go down or right' ... in the starting position
 
-// Get player move and process
+// Create the game board
+//     we shall replace this with the .generateFiled()method
 
-/* Do until- either
-1. win
-2. player falls down a hole
-3. player falls off the edge of the board
+const gameFieldOne = [
+  [pathCharacter, fieldCharacter, fieldCharacter],
+  [pathCharacter, fieldCharacter, hole],
+  [hole, fieldCharacter, fieldCharacter],
+  [hole, fieldCharacter, fieldCharacter],[fieldCharacter, hat, hole],
+    ];
 
-*/
-// Game loop
 
-let playerMove;
-let i = 0;
-let j = 0;
-let playerPosition = [i, j];
-let gameOver = false;
-do {
-   (playerMove = prompt('Please enter a move, u[p], d[own] l[eft] or r[ight] or "X" to quit: '));
-//   console.log(`You chose: ${playerMove}`);
-
-// up
-// down
-
-// left & right
-// decrement or increment the index of the inner array
-// up and down
-  switch (playerMove){
-    case 'u':
-      i--;
-      break;
-    case 'd':
-      i++;
-      break;
-    case 'l':
-      j--;
-      break;
-    case 'r':
-      j++;
-      break;
-    case 'X':
-      gameOver = true;
-      break;
-    default:
-    console.log('Not a legal input...')
-  }
-    if (i < 0  || i > 3 || j < 0  || j > 2) {	
-        console.log('Sorry you screwed up. Goodbye.');
-        gameOver;
-      }
-// prompt = '';
-  
-// decrement or increment the index of the outer array
-// if up or left and index < 0 - GAME OVER!
-// if down or right and index > <ARRAY>.length - GAME OVER!
-
-} while (!gameOver && playerMove !== 'X')
