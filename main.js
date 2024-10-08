@@ -19,10 +19,11 @@ class Field {
     print () {
 // display the 'field' to the user console
 // More sensibly we wouldn't assume the array size but would have a for loop
-    console.log(this._fieldArray[0].join(' '));
-    console.log(this._fieldArray[1].join(' '));
-    console.log(this._fieldArray[2].join(' '));
-    console.log(this._fieldArray[3].join(' '));  
+	console.log(this._fieldArray[0].join(' '));
+	console.log(this._fieldArray[1].join(' '));
+	console.log(this._fieldArray[2].join(' '));
+	console.log(this._fieldArray[3].join(' '));
+	console.log(this._fieldArray[4].join(' '));
     } // method .print() of Class Field
 
     static generateField(height, width){
@@ -46,6 +47,7 @@ class Field {
 	let maxJ = 2;
 	let playerPosition = [i, j];
 	let illegalInput = false;
+	let playerMove ='';
 	
 	let gameOver = false;
 // Game loop
@@ -87,14 +89,20 @@ class Field {
 	    case 'X':
 		gameOver = true;
 		break;
-	    default: // do we need a default case?
+	    default:
+		console.log('Valid moves are:  u[p], d[own] l[eft] or r[ight] or "X" to quit...') // player entered something stupid
 	    } // switch
-	    if (i < 0  || i > 3 || j < 0  || j > 2) {	
+
+	    console.log(`Value of playerMove, i, j is: ${playerMove}, ${i}, ${j}`);
+	    
+	    if (gameOver){
+		console.log('Thanks for playing. Good Bye...'); // Player exited game
+	    } else if (illegalInput) {          // move outside of board	
 		console.log('Not a legal input...')
 		console.log('Sorry you screwed up. Goodbye.');
-       		gameOver;
-	    } // if (out of bounds)
-	} while (!gameOver && playerMove !== 'X')
+       		gameOver = true;
+	    } else {} // if (player exit or out of bounds)
+	} while (!gameOver)
 
     } // method .playGame() of Class Field
     
@@ -103,25 +111,27 @@ class Field {
 // Create a field array to be passed to the object when we instantiate
 Field.generateField();
 
-
-// Instantiate the Field object
-const myFieldOne = new Field(gameFieldOne);
-myFieldOne.print();
-
-// Get user's name and greet
-// const userName = prompt('What is your name? ');
-// console.log(`Hello, ${userName}!`)
-
-
-
 // Create the game board
 //     we shall replace this with the .generateFiled()method
 
 const gameFieldOne = [
   [pathCharacter, fieldCharacter, fieldCharacter],
-  [pathCharacter, fieldCharacter, hole],
+  [fieldCharacter, fieldCharacter, hole],
   [hole, fieldCharacter, fieldCharacter],
-  [hole, fieldCharacter, fieldCharacter],[fieldCharacter, hat, hole],
-    ];
+  [fieldCharacter, hole, fieldCharacter],
+  [fieldCharacter, hat, hole],
+  ];
+
+
+
+// Instantiate the Field object
+const myFieldOne = new Field(gameFieldOne);
+myFieldOne.print(); // Display the starting board
+myFieldOne.playGame(); // play the game
+
+// Get user's name and greet
+// const userName = prompt('What is your name? ');
+// console.log(`Hello, ${userName}!`)
+
 
 
