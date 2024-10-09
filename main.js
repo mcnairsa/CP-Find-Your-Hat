@@ -43,7 +43,7 @@ class Field {
 	// let playerMove;
 	let i = 0;
 	let j = 0;
-	let maxI = 3;
+	let maxI = 4;
 	let maxJ = 2;
 	let playerPosition = [i, j];
 	let illegalInput = false;
@@ -89,11 +89,13 @@ class Field {
 	    case 'X':
 		gameOver = true;
 		break;
+	    case 'P':
+		this.print();
 	    default:
-		console.log('Valid moves are:  u[p], d[own] l[eft] or r[ight] or "X" to quit...') // player entered something stupid
+		console.log('Valid moves are:  u[p], d[own] l[eft], r[ight], "P" to repaint the field or "X" to quit...') // player entered something stupid
 	    } // switch
 
-	    console.log(`Value of playerMove, i, j is: ${playerMove}, ${i}, ${j}`);
+	    console.log(`Value of playerMove, i, j is, this._fieldArray([i][j]: ${playerMove}, ${i}, ${j}`);
 	    
 	    if (gameOver){
 		console.log('Thanks for playing. Good Bye...'); // Player exited game
@@ -101,7 +103,24 @@ class Field {
 		console.log('Not a legal input...')
 		console.log('Sorry you screwed up. Goodbye.');
        		gameOver = true;
-	    } else {} // if (player exit or out of bounds)
+	    } else {
+		switch (this._fieldArray[i][j]){
+		case fieldCharacter:
+		    this. _fieldArray[i][j] = pathCharacter;
+		    break;
+		case hole:
+		    console.log('You fell down a hole...')
+		    console.log('... such a shame! Goodbye.');
+		    gameOver = true;
+		    break;
+		case hat:
+		    console.log('WooHoo! You found it! \n You know what they say: If you want to get ahead get a hat. Well you got a hat so go forth and achieve great things!');
+		    gameOver = true;
+		    break
+		default:
+					 }
+	    } // not player exit or out of bounds so process the input
+	    this.print();
 	} while (!gameOver)
 
     } // method .playGame() of Class Field
@@ -115,10 +134,10 @@ Field.generateField();
 //     we shall replace this with the .generateFiled()method
 
 const gameFieldOne = [
-  [pathCharacter, fieldCharacter, fieldCharacter],
+  [pathCharacter, hole, fieldCharacter],
   [fieldCharacter, fieldCharacter, hole],
-  [hole, fieldCharacter, fieldCharacter],
-  [fieldCharacter, hole, fieldCharacter],
+  [hole, fieldCharacter, hole],
+  [fieldCharacter, fieldCharacter, fieldCharacter],
   [fieldCharacter, hat, hole],
   ];
 
