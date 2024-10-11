@@ -26,12 +26,20 @@ class Field {
 	console.log(this._fieldArray[4].join(' '));
     } // method .print() of Class Field
 
+    // information on creating and populating a multi-dimensional 'nested') array from //https://dev.to/yanhaijing/mastering-javascript-multiple-ways-to-generate-a-two-dimensional-array-cpg
+
     static generateField(height, width){
 	// takes parameters height and width for the filed array
-	// we may add input the percentage of holes
+	// we may add input for the percentage of holes
 	// nothing to see here yet
 	// we're generating the field by hand
-	
+	//	return [...Array(m)].map(() => Array(n).fill(0)); ... original code from the article
+	// create array and populate with 'fieldCharacter's
+	const fieldArray =  [...Array(width)].map(() => Array(height).fill(fieldCharacter));
+	const nbrHoles = 10;
+	for (let loopIndex = 0; loopIndex <= nbrHoles; loopIndex++){
+	    Math.random()* height}
+	return fieldArray
     } // method .generateField of Class Field
 
     playGame(){
@@ -133,6 +141,7 @@ Field.generateField();
 // Create the game board
 //     we shall replace this with the .generateFiled()method
 
+/*
 const gameFieldOne = [
   [pathCharacter, hole, fieldCharacter],
   [fieldCharacter, fieldCharacter, hole],
@@ -140,17 +149,11 @@ const gameFieldOne = [
   [fieldCharacter, fieldCharacter, fieldCharacter],
   [fieldCharacter, hat, hole],
   ];
+*/
 
-
+const gameFieldOne = Field.generateField(3, 5);
 
 // Instantiate the Field object
 const myFieldOne = new Field(gameFieldOne);
 myFieldOne.print(); // Display the starting board
 myFieldOne.playGame(); // play the game
-
-// Get user's name and greet
-// const userName = prompt('What is your name? ');
-// console.log(`Hello, ${userName}!`)
-
-
-
