@@ -31,15 +31,35 @@ class Field {
     static generateField(height, width){
 	// takes parameters height and width for the filed array
 	// we may add input for the percentage of holes
-	// nothing to see here yet
-	// we're generating the field by hand
 	//	return [...Array(m)].map(() => Array(n).fill(0)); ... original code from the article
 	// create array and populate with 'fieldCharacter's
 	const fieldArray =  [...Array(width)].map(() => Array(height).fill(fieldCharacter));
 	const nbrHoles = 10;
-	for (let loopIndex = 0; loopIndex <= nbrHoles; loopIndex++){
-	    Math.random()* height}
-	return fieldArray
+	let column = 0;
+	let row = 0;
+	for (let loopIndex = 0; loopIndex < nbrHoles; loopIndex++){
+//	    console.log(`Value of loopIndex is: ${loopIndex}`);
+	    row  = Math.floor(Math.random() * height);
+	    column = Math.floor(Math.random() * width);
+//	    console.log(`Values to be set are row ${row} and column ${column}.`);
+	    fieldArray[column][row] = hole;
+	}
+	// Place the 'hat' (^)
+	const hatRow  = Math.floor(Math.random() * height);
+	const hatColumn = Math.floor(Math.random() * width);
+	fieldArray[hatColumn][hatRow] = hat;
+	// Set the start of the 'path'
+	// Check first that position is not the same as the 'hat'
+	let startRow = 0;
+	let startColumn = 0;
+	while (startRow === hatRow && startColumn === hatColumn) {
+	    startRow  = Math.floor(Math.random() * height);
+	    startColumn = Math.floor(Math.random() * width);
+	} 
+	fieldArray[startColumn][startRow] = pathCharacter;
+	
+	// Now return the field
+	return fieldArray;	
     } // method .generateField of Class Field
 
     playGame(){
@@ -135,9 +155,6 @@ class Field {
     
 } // Class Field
 
-// Create a field array to be passed to the object when we instantiate
-Field.generateField();
-
 // Create the game board
 //     we shall replace this with the .generateFiled()method
 
@@ -151,6 +168,7 @@ const gameFieldOne = [
   ];
 */
 
+// Create a field array to be passed to the object when we instantiate
 const gameFieldOne = Field.generateField(3, 5);
 
 // Instantiate the Field object
